@@ -36,7 +36,7 @@ public class ServerWorking implements TCPConnectionListener {
         sedToAllConnections("Connect: " + tcpConnection);
     }
 
-
+        // Получаем сообщения
     @Override
     public synchronized void onReceiveString(OurNet tcpConnection, String value) {
         sedToAllConnections(value);
