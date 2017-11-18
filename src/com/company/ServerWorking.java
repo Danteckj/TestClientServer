@@ -13,6 +13,7 @@ public class ServerWorking implements TCPConnectionListener {
     //Массив соеденений
     private final ArrayList<OurNet> connections = new ArrayList<>();
 
+
     private ServerWorking(){
         System.out.println("Go");
         try (ServerSocket serverSocket = new ServerSocket(8189)){
@@ -28,12 +29,13 @@ public class ServerWorking implements TCPConnectionListener {
         }
     }
 
-
+    //Добавляет новый коннект.
     @Override
     public synchronized void onConectionReady(OurNet tcpConnection) {
         connections.add(tcpConnection);
         sedToAllConnections("Connect: " + tcpConnection);
     }
+
 
     @Override
     public synchronized void onReceiveString(OurNet tcpConnection, String value) {
@@ -41,12 +43,14 @@ public class ServerWorking implements TCPConnectionListener {
 
     }
 
+    //Удаляет коннект
     @Override
     public synchronized void onDisconect(OurNet tcpConnection) {
         connections.remove(tcpConnection);
         sedToAllConnections("Connect: " + tcpConnection);
     }
 
+    //Логиерут исключения
     @Override
     public synchronized void onException(OurNet tcpConnection, Exception e) {
         System.out.println("OurNet exeption: " + e);
